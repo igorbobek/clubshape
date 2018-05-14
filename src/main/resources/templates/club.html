@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background: lavender;">
+<div th:replace="template :: header_menu"></div>
+<div style="width: 988px; margin: auto;">
+    <h1 th:text="${club.name}" style="color: #00000080;"></h1>
+    <div style="overflow: hidden;border: 2px inset white;
+    background: #f8f8f8;border-radius: 94px;">
+        <div class="task-content" th:each="player : ${club.players}">
+            <div th:each="form : ${player.club.clubFormSet}" class="product-box col-xs-6 col-md-4" style="text-align: center; width: fit-content;border-radius: 16%;border: 6px inset white;background: #d5d5d5;">
+                <div class="caption" style="text-align: center">
+
+                    <div sec:authorize="hasRole('ROLE_USER')" style="display: contents;">
+                        <form th:method="POST" th:action="@{/addFormForMe}">
+                            <input th:value="${player.id}" type="hidden" name="playerId">
+                            <input th:value="${form.form.id}" type="hidden" name="formId">
+                            <button type="submit" style="border: 0; background: transparent">
+                                <img src="https://cdn0.iconfinder.com/data/icons/ie_Bright/512/plus_add_green.png" style="width: 64px;">
+                            </button>
+                        </form>
+                    </div>
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" style="display: contents;">
+                        <form th:method="POST" th:action="@{/deletePlayer}">
+                            <input th:value="${player.id}" type="hidden" name="playerId">
+                            <button type="submit" style="border: 0; background: transparent">
+                                <img src="http://s1.iconbird.com/ico/0612/MustHave/w256h2561339195686Delete256x256.png" style="width: 64px;">
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="capt_name"><h4 th:text="${form.form.name}" style="text-decoration: underline"></h4></div>
+                </div>
+                <div class="caption" style="text-align: center">
+                    <div class="capt_name"><h4 th:text="${'ФИО: '+player.fio}"></h4></div>
+                </div>
+                <div class="caption" style="text-align: center">
+                    <div class="capt_name"><h4 th:text="${'Номер: '+player.number}"></h4></div>
+                </div>
+                <div class="caption" style="text-align: center">
+                    <div class="capt_name"><h4 th:text="${'Позиция: '+ player.position}"></h4></div>
+                </div>
+                <div class="caption" style="text-align: center">
+                    <div class="capt_name"><h4 th:text="${'Цена: '+ form.form.price}"></h4></div>
+                </div>
+                <a th:href="${'/form/' + form.form.id}">
+                    <img th:src="${form.form.image}" th:width="450px" style="border-radius: 50%; height: 450px">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

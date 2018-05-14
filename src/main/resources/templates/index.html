@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background: lavender;">
+<div th:replace="template :: header_menu"></div>
+<div style="width: 1030px; margin: auto;">
+    <div style="overflow: hidden;border: 2px inset white;
+    background: #f8f8f8;border-radius: 62px;">
+        <div class="task-content" th:each="club : ${clubs}">
+            <div class="product-box col-xs-6 col-md-4" style="text-align: center; width: fit-content;background: #d6d6d6;
+    border-radius: 16%;border: 6px inset white;
+    background: #d5d5d5;">
+                <a th:href="${'/club/' + club.id}">
+                    <img th:src="${club.image}" th:width="300px">
+                </a>
+                <div class="caption" style="text-align: center">
+                    <div class="capt_name"><h2 th:text="${club.name}"></h2></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

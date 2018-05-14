@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Club</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="container" class="container">
+    <div th:replace="template :: header_menu"></div>
+    <div style="width:50%; margin: auto; text-align: center">
+        <h1>Добавить клуб</h1>
+        <form action="/admin/addClub" th:object="${club}" method="POST" enctype="utf8">
+            Название: <div class="form-control" style="margin-bottom: 5px;"><input th:field="*{name}" class="form-control"/>
+        </div>
+            Картинка: <div class="form-control" style="margin-bottom: 5px;"><input type="text" th:field="*{image}" class="form-control"/>
+        </div>
+            Лига: <div class="form-control" style="margin-bottom: 5px;"><input type="text" th:field="*{league.name}" class="form-control"/>
+        </div>
+            Страна: <div class="form-control" style="margin-bottom: 5px;"><input type="text" th:field="*{league.country.country}" class="form-control"/>
+        </div>
+            <button style="margin-top: 10px;" type="submit" class="btn btn-info">Добавить</button>
+        </form>
+    </div>>
+</div>
+</body>
+</html>
